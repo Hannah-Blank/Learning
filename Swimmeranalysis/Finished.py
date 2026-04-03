@@ -1,5 +1,11 @@
 def get_swim_data(fn):
+    #Given the name of a swimmer's file, extract all the required data, then return it to the caller as a tuple.
     swimmer, age_group, distance, stroke= fn.removesuffix(".txt").split("-")
+
+    print(f"Swimmer: {swimmer}")
+    print(f"Age group: Under {age_group}")
+    print(f"Distance: {distance}")
+    print(f"Stroke: {stroke}")
 
     FOLDER = "swimdata/"
 
@@ -7,10 +13,7 @@ def get_swim_data(fn):
         data = df.readlines()
     times = data[0].strip().split(",")
 
-    print(f"Swimmer: {swimmer}")
-    print(f"Age group: Under {age_group}")
-    print(f"Distance: {distance}")
-    print(f"Stroke: {stroke}")
+    #Converts the times to hundredths of seconds
     converts = []
     for time in times:
         minutes, rest = time.split(":")
@@ -18,8 +21,8 @@ def get_swim_data(fn):
         converted_time = int(minutes)*60*100 + int(seconds)*100 + int(hundredths)
         converts.append(converted_time)
         print(time, "->", converted_time)
-    average_time = sum(converts)/ len(converts)
-    
+   
+    #Calculate the average time and convert it back to minutes, seconds, and hundredths of seconds
     import statistics
 
     average =statistics.mean(converts)
@@ -30,4 +33,4 @@ def get_swim_data(fn):
     average = str(minutes) + ":" + str(seconds) + "." + hundredths
     print(f"Average time: {average}")
 
-print(get_swim_data("Darius-13-100m-Fly.txt"))
+print(get_swim_data("Abi-10-50m-Back.txt"))
