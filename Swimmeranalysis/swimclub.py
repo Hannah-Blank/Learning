@@ -1,3 +1,6 @@
+import statistics 
+FOLDER = "Swimmeranalysis/swimdata/"
+
 def get_swim_data(fn):
     #Given the name of a swimmer's file, extract all the required data, then return it to the caller as a tuple.
     swimmer, age_group, distance, stroke= fn.removesuffix(".txt").split("-")
@@ -7,7 +10,6 @@ def get_swim_data(fn):
     print(f"Distance: {distance}")
     print(f"Stroke: {stroke}")
 
-    FOLDER = "swimdata/"
 
     with open(FOLDER + fn) as df:
         data = df.readlines()
@@ -16,15 +18,20 @@ def get_swim_data(fn):
     #Converts the times to hundredths of seconds
     converts = []
     for time in times:
-        minutes, rest = time.split(":")
-        seconds, hundredths = rest.split(".")
-        converted_time = int(minutes)*60*100 + int(seconds)*100 + int(hundredths)
-        converts.append(converted_time)
-        print(time, "->", converted_time)
+        if time > "59.99":
+            minutes, rest = time.split(":")
+            seconds, hundredths = rest.split(".")
+            converted_time = int(minutes)*60*100 + int(seconds)*100 + int(hundredths)
+            converts.append(converted_time)
+            print(time, "->", converted_time)
+        else: 
+            seconds, hundredths = time.split(".")
+            converted_time = int(seconds)*100 + int(hundredths)
+            converts.append(converted_time)
+            print(time, "->", converted_time)
    
     #Calculate the average time and convert it back to minutes, seconds, and hundredths of seconds
-    import statistics
-
+    
     average =statistics.mean(converts)
     mins_secs, hundredths= str(round(average/ 100,2)).split(".")
     mins_secs = int(mins_secs)
