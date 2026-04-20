@@ -1,0 +1,9 @@
+#name = input("Enter your fullname: ")
+phone_number = input("Enter your phone number: ")
+#length = len(name)
+#result = name.find("a") finding the first index of a character
+#result = name.rfind("a") finding the last index of a character
+#result = name.isdigit() #checking if the string contains only digits
+#result = name.isalpha() #checking if the string contains only letters
+#result = phone_number.count("-") #counting the number of dashes in the string
+#result = phone_number.replace("-"," ") #removing dashes from the phone number
